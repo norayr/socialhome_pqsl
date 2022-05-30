@@ -5,6 +5,19 @@ IMPORT postgres, Out, Strings, StringList;
 (* SELECT * FROM public.content_content where author_id=1; *)
 (* SELECT "id","text","guid","remote_created","service_label","created","modified","author_id","order","pinned","visibility","oembed_id","opengraph_id","rendered","parent_id","share_of_id","content_type","reply_count","shares_count","local","show_preview","federate","include_following","fid","uuid","root_parent_id" FROM "public"."content_content" WHERE "author_id" = '1' AND "order" = '0' *)
 
+PROCEDURE getPostGuid*(VAR id, guid: ARRAY OF CHAR);
+VAR
+  cmd: ARRAY 64 OF CHAR;
+BEGIN
+  COPY('SELECT guid FROM "public"."content_content" WHERE id=', cmd);
+  Strings.Append("'", cmd);
+  Strings.Append(id, cmd);
+  Strings.Append("'", cmd);
+  Strings.Append("';", cmd);
+  Out.String(cmd); Out.Ln;
+  postgres.queryL(cmd, guid);
+END getPostGuid;
+
 (* SELECT id FROM "public"."content_content" where author_id=1 and content_type=0; *)
 PROCEDURE getListOfPosts*(VAR userid: ARRAY OF CHAR; public : BOOLEAN): StringList.TStringList;
 VAR
