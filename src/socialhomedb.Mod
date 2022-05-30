@@ -34,6 +34,28 @@ BEGIN
   END
 END getCreationTime;
 
+PROCEDURE getText*(postid: ARRAY OF CHAR): StringList.TStringList;
+VAR
+  cmd: ARRAY 256 OF CHAR;
+  strs: StringList.TStringList;
+BEGIN
+  COPY('SELECT text FROM "public"."content_content" WHERE id=', cmd);
+  Strings.Append("'", cmd);
+  Strings.Append(postid, cmd);
+  Strings.Append("'", cmd);
+  Strings.Append("';", cmd);
+  Out.String(cmd); Out.Ln;
+  strs := postgres.query(cmd);
+  strs := postgres.query(cmd);
+  strs.Delete(strs, 0);
+  strs.Delete(strs, 0);
+  strs.Delete(strs, strs.Count-1);
+  strs.Delete(strs, strs.Count-1);
+  strs.Delete(strs, strs.Count-1);
+  clean(strs);
+  RETURN(strs);
+END getText;
+
 PROCEDURE getPostGuid*(VAR id, guid: ARRAY OF CHAR);
 VAR
   cmd: ARRAY 64 OF CHAR;
