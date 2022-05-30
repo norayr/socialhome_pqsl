@@ -10,11 +10,12 @@ VAR
   cmd : ARRAY 64 OF CHAR;
 
 BEGIN
+  (* SELECT id FROM "public"."users_user" where username='inky'; *)
   cmd := 
 
 
 END;
 
-
+(* SELECT * FROM "public"."content_content" where author_id=1 and content_type=0; *)
 
 END socialhome.
