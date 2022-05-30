@@ -16,7 +16,7 @@ BEGIN
   Strings.Append("';", cmd);
   Out.String(cmd); Out.Ln;
   postgres.queryL(cmd, id);
-END;
+END getAuthorId;
 
 (* SELECT * FROM "public"."content_content" where author_id=1 and content_type=0; *)
 
