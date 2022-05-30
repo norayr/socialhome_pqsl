@@ -1,9 +1,38 @@
 MODULE socialhomedb;
-IMPORT postgres, Out, Strings, StringList;
+IMPORT postgres, Out, Strings, StringList, strutils;
 
 (* get posts of user *)
 (* SELECT * FROM public.content_content where author_id=1; *)
 (* SELECT "id","text","guid","remote_created","service_label","created","modified","author_id","order","pinned","visibility","oembed_id","opengraph_id","rendered","parent_id","share_of_id","content_type","reply_count","shares_count","local","show_preview","federate","include_following","fid","uuid","root_parent_id" FROM "public"."content_content" WHERE "author_id" = '1' AND "order" = '0' *)
+
+PROCEDURE getCreationTime*(postid: ARRAY OF CHAR; VAR time: ARRAY OF CHAR);
+VAR
+  cmd: ARRAY 256 OF CHAR;
+  strs: StringList.TStringList;
+  e: StringList.Node;
+  p: INTEGER;
+BEGIN
+  COPY ('SELECT created from "public"."content_content" WHERE id=', cmd);
+  Strings.Append("'", cmd);
+  Strings.Append(postid, cmd);
+  Strings.Append("'", cmd);
+  Strings.Append("';", cmd);
+  Out.String(cmd); Out.Ln;
+  strs := postgres.query(cmd);
+  strs := postgres.query(cmd);
+  strs.Delete(strs, 0);
+  strs.Delete(strs, 0);
+  strs.Delete(strs, strs.Count-1);
+  strs.Delete(strs, strs.Count-1);
+  strs.Delete(strs, strs.Count-1);
+  e := strs.Get(strs, strs.Count-1);
+  Strings.Assign(e.obj(StringList.TString).str^, time);
+  (* now check if the line contains dot, then cut everything from right till the dot included *)
+    p := strutils.Pos('.', time, 0);
+  IF p # 0 THEN
+    Strings.Delete(time, p, Strings.Length(time)-p);
+  END
+END getCreationTime;
 
 PROCEDURE getPostGuid*(VAR id, guid: ARRAY OF CHAR);
 VAR
