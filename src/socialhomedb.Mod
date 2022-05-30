@@ -43,5 +43,5 @@ END getAuthorId;
 
 BEGIN
   postgres.setUser("socialhome");
-  postgres.setDatabase("socialhome");
+  postgres.setDatabase("tsmakut");
 END socialhomedb.
