@@ -1,5 +1,5 @@
 MODULE socialhomedb;
-IMPORT postgres, Out, Strings;
+IMPORT postgres, Out, Strings, StringList;
 
 (* get posts of user *)
 (* SELECT * FROM public.content_content where author_id=1; *)
