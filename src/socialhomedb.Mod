@@ -11,7 +11,7 @@ VAR
   cmd: ARRAY 128 OF CHAR;
   strs: StringList.TStringList;
 BEGIN
-  COPY 'SELECT id FROM "public"."content_content" where author_id=', cmd);
+  COPY ('SELECT id FROM "public"."content_content" where author_id=', cmd);
   Strings.Append(userid, cmd);
   Strings.Append(" and content_type=0", cmd);
   IF public THEN
