@@ -1,5 +1,5 @@
 MODULE socialhomedb;
-IMPORT postgres, Out, Strings, StringList, strutils;
+IMPORT postgres, Out, Strings := oocStrings, StringList, strutils;
 
 (* get posts of user *)
 (* SELECT * FROM public.content_content where author_id=1; *)
