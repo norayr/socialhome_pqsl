@@ -41,4 +41,7 @@ BEGIN
   postgres.queryL(cmd, id);
 END getAuthorId;
 
+BEGIN
+  postgres.setUser("socialhome");
+  postgres.setDatabase("socialhome");
 END socialhomedb.
