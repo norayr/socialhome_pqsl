@@ -10,7 +10,8 @@ VAR
   cmd : ARRAY 96 OF CHAR;
 BEGIN
   (* SELECT id FROM "public"."users_user" where username='inky'; *)
-  COPY('SELECT id FROM "public"."users_user" where username='", cmd);
+  COPY('SELECT id FROM "public"."users_user" where username=", cmd);
+  Strings.Append("'", cmd);
   Strings.Append(username, cmd);
   Strings.Append("';", cmd);
   Out.String(cmd); Out.Ln;
