@@ -5,6 +5,31 @@ IMPORT postgres, Out, Strings := oocStrings, StringList, strutils;
 (* SELECT * FROM public.content_content where author_id=1; *)
 (* SELECT "id","text","guid","remote_created","service_label","created","modified","author_id","order","pinned","visibility","oembed_id","opengraph_id","rendered","parent_id","share_of_id","content_type","reply_count","shares_count","local","show_preview","federate","include_following","fid","uuid","root_parent_id" FROM "public"."content_content" WHERE "author_id" = '1' AND "order" = '0' *)
 
+PROCEDURE clean(VAR strs: StringList.TStringList);
+VAR
+  e : StringList.Node;
+  L : StringList.TList;
+  i, l : INTEGER;
+BEGIN
+  NEW(e); NEW(L);
+  L := strs;
+  REPEAT
+    e := strs.Get(L, i);
+    IF e # NIL THEN
+      l := Strings.Length(e.obj(StringList.TString).str^) - 1;
+      IF e.obj(StringList.TString).str[l] = '+' THEN
+        Strings.Delete(e.obj(StringList.TString).str^, l, 1);
+        strutils.RemoveRightChars(e.obj(StringList.TString).str^, ' ');
+        l := Strings.Length(e.obj(StringList.TString).str^) - 1 ;
+        IF (e.obj(StringList.TString).str^[l-1] = '\') & (e.obj(StringList.TString).str^[l] = 'r') THEN
+          Strings.Delete(e.obj(StringList.TString).str^, l-1, 2);
+        END;
+      END; (* clean *)
+    END;
+    INC(i)
+  UNTIL i = strs.Count;
+END clean;
+
 PROCEDURE getCreationTime*(postid: ARRAY OF CHAR; VAR time: ARRAY OF CHAR);
 VAR
   cmd: ARRAY 256 OF CHAR;
