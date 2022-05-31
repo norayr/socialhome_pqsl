@@ -104,7 +104,7 @@ BEGIN
   Strings.Append(userid, cmd);
   Strings.Append(" and content_type=0", cmd);
   IF public THEN
-    Strings.Append(" and visibility=0", cmd)
+    Strings.Append(" and visibility=0 ORDER BY id", cmd)
   END;
   Strings.Append(";", cmd);
   Out.String(cmd); Out.Ln;
