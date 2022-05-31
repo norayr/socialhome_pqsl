@@ -1,10 +1,6 @@
 MODULE socialhomedb;
 IMPORT postgres, Out, Strings := oocStrings, StringList, strutils;
 
-(* get posts of user *)
-(* SELECT * FROM public.content_content where author_id=1; *)
-(* SELECT "id","text","guid","remote_created","service_label","created","modified","author_id","order","pinned","visibility","oembed_id","opengraph_id","rendered","parent_id","share_of_id","content_type","reply_count","shares_count","local","show_preview","federate","include_following","fid","uuid","root_parent_id" FROM "public"."content_content" WHERE "author_id" = '1' AND "order" = '0' *)
-
 PROCEDURE clean(VAR strs: StringList.TStringList);
 VAR
   e : StringList.Node;
@@ -70,13 +66,18 @@ BEGIN
   Strings.Append("';", cmd);
   Out.String(cmd); Out.Ln;
   strs := postgres.query(cmd);
+  Out.String(cmd); Out.Ln;
   strs := postgres.query(cmd);
+  Out.String("cleaning"); Out.Ln;
   strs.Delete(strs, 0);
   strs.Delete(strs, 0);
+  Out.String("still cleaning"); Out.Ln;
   strs.Delete(strs, strs.Count-1);
   strs.Delete(strs, strs.Count-1);
   strs.Delete(strs, strs.Count-1);
+  Out.String("calling clean"); Out.Ln;
   clean(strs);
+  Out.String("clean over"); Out.Ln;
   RETURN(strs);
 END getText;
 
