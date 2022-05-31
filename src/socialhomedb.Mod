@@ -37,6 +37,7 @@ VAR
   e: StringList.Node;
   p: INTEGER;
 BEGIN
+  Out.String("getting creation time of post "); Out.String(postid); Out.Ln;
   COPY ('SELECT created from "public"."content_content" WHERE id=', cmd);
   Strings.Append("'", cmd);
   Strings.Append(postid, cmd);
