@@ -68,16 +68,12 @@ BEGIN
   strs := postgres.query(cmd);
   Out.String(cmd); Out.Ln;
   strs := postgres.query(cmd);
-  Out.String("cleaning"); Out.Ln;
   strs.Delete(strs, 0);
   strs.Delete(strs, 0);
-  Out.String("still cleaning"); Out.Ln;
   strs.Delete(strs, strs.Count-1);
   strs.Delete(strs, strs.Count-1);
   strs.Delete(strs, strs.Count-1);
-  Out.String("calling clean"); Out.Ln;
   clean(strs);
-  Out.String("clean over"); Out.Ln;
   RETURN(strs);
 END getText;
 
