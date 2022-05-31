@@ -41,7 +41,6 @@ BEGIN
   COPY ('SELECT created from "public"."content_content" WHERE id=', cmd);
   Strings.Append("'", cmd);
   Strings.Append(postid, cmd);
-  Strings.Append("'", cmd);
   Strings.Append("';", cmd);
   Out.String(cmd); Out.Ln;
   strs := postgres.query(cmd);
@@ -68,7 +67,6 @@ BEGIN
   COPY('SELECT text FROM "public"."content_content" WHERE id=', cmd);
   Strings.Append("'", cmd);
   Strings.Append(postid, cmd);
-  Strings.Append("'", cmd);
   Strings.Append("';", cmd);
   Out.String(cmd); Out.Ln;
   strs := postgres.query(cmd);
@@ -89,7 +87,6 @@ BEGIN
   COPY('SELECT guid FROM "public"."content_content" WHERE id=', cmd);
   Strings.Append("'", cmd);
   Strings.Append(id, cmd);
-  Strings.Append("'", cmd);
   Strings.Append("';", cmd);
   Out.String(cmd); Out.Ln;
   postgres.queryL(cmd, guid);
